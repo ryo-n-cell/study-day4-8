@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Todo_list</title>
+</head>
+
+<body>
+  <div class="filters" id="todo">
+    <section class="panel">
+      <label><input type="radio" value="allLists" v-model="selectLists" checked="checked">全て</label>
+      <label><input type="radio" value="remainingLists" v-model="selectLists">作業中</label>
+      <label><input type="radio" value="completeLists" v-model="selectLists">完了</label>
+      <span class="info">(全てのリスト{{ todoList.length }}/残りリスト{{ remaining.length }}/完了リスト{{ complete.length }})</span>
+    </section>
+    <ul class="list" style="list-style: none;">
+    <p class="head">ID コメント 状態</p>
+    <hr>
+
+    <div v-show ="selectLists === 'allLists'">
+      <p>全てのリスト</p>
+      <li v-for="(item, index) in todoList">
+        <span class="index">{{ index }}</apan>
+        <span class="comment">{{ item.comment }}</apan>
+        <button class="status" @click="done(index)" v-if="item.isDone">完了</button>
+        <button class="status" @click="done(index)" v-else>作業中</button>
+        <button class="delete" @click="remove(index)">削除</button>
+      </li>
+    </div>
+    
+    <div v-show ="selectLists === 'remainingLists'">
+      <p>実行中リスト</p>
+      <li v-for="(item, index) in remaining">
+        <span class="index">{{ index }}</apan>
+        <span class="comment">{{ item.comment }}</apan>
+        <button class="status" @click="done(index)" v-if="item.isDone">完了</button>
+        <button class="status" @click="done(index)" v-else>作業中</button>
+        <button class="delete" @click="remove(index)">削除</button>
+      </li>
+    </div>
+
+    <div v-show ="selectLists === 'completeLists'">
+      <p>完了リスト</p>
+      <li v-for="(item, index) in complete">
+        <span class="index">{{ index }}</apan>
+        <span class="comment">{{ item.comment }}</apan>
+        <button class="status" @click="done(index)" v-if="item.isDone">完了</button>
+        <button class="status" @click="done(index)" v-else>作業中</button>
+        <button class="delete" @click="remove(index)">削除</button>
+      </li>
+    </div>
+
+    </ul>
+    <h1>新しい作業の追加</h1>
+    <p>コメント
+      <input type="text" class="text-input" v-model="inputData" />
+      <button @click="addtodo">追加</button>
+    </p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="js/todoList.js"></script>
+</body>
+</html>
+
